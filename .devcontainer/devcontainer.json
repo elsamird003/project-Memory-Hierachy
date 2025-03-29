@@ -1,0 +1,15 @@
+{
+	"name": "umass-cs230",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack"
+			]
+		}
+	}
+}
