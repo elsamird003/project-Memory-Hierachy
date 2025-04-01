@@ -47,7 +47,8 @@ Set *make_sets(int set_count, int line_count, int block_size) {
     memory[i].lines = make_lines(line_count,block_size);
     memory[i].lru_queue = NULL;
    }
-
+   
+   return memory;
  // return NULL;
 }
 
@@ -60,7 +61,7 @@ Cache *make_cache(int set_bits, int line_count, int block_bits) {
   //
   // ADD YOUR CODE HERE:
 
-   Cache *cache =(Cache*) malloc(set_bits* sizeof(Cache));
+  Cache *cache = (Cache *) malloc(sizeof(Cache));
 
    cache->block_bits = block_bits;
    cache->line_count = line_count;
