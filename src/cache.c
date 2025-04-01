@@ -23,7 +23,7 @@ Line *make_lines(int line_count, int block_size) {
   //   make and initialize the blocks.
   //
   //   HINT: this will be placed in the "accessed" field of a Line
-  Line *memory = (Line*) malloc(sizeof(Line));  // array of lines 
+  Line *memory = (Line*) malloc( line_count *sizeof(Line));  // array of lines 
   for(int i = 0; i < line_count; i++ ){
     memory[i].accessed= make_block(block_size);
     memory[i].tag= 0;
@@ -41,7 +41,7 @@ Set *make_sets(int set_count, int line_count, int block_size) {
   //   make and initialize the line and blocks.
   //
    
-   Set *memory = (Set*) malloc(sizeof(Set));
+   Set *memory = (Set*) malloc(set_count * sizeof(Set));
    for(int i = 0; i < set_count; i++ ){
     memory[i].line_count= line_count;
     memory[i].lines = make_lines(line_count,block_size);
@@ -60,7 +60,7 @@ Cache *make_cache(int set_bits, int line_count, int block_bits) {
   //
   // ADD YOUR CODE HERE:
 
-   Cache *cache =(Cache*) malloc(sizeof(Cache));
+   Cache *cache =(Cache*) malloc(set_bits* sizeof(Cache));
 
    cache->block_bits = block_bits;
    cache->line_count = line_count;
