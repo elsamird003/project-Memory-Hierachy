@@ -9,9 +9,11 @@
 char *make_block(int block_size) {
   // TODO:
   //   Make and initialize a block's accessed bits given the block_size.
+
   //
+ 
   // HINT: if it wasn't clear already, this gets put in the "accessed" field
-   return malloc(block_size);
+  return (char *) malloc(block_size);
  // return NULL;
 }
 
@@ -21,11 +23,16 @@ Line *make_lines(int line_count, int block_size) {
   //   make and initialize the blocks.
   //
   //   HINT: this will be placed in the "accessed" field of a Line
-   Line *memory = malloc(sizeof(Line));
+  Line *memory = (Line*) malloc(sizeof(Line));  // array of lines 
+  for(int i = 0; i < line_count; i++ ){
+    memory[i].accessed= make_block(block_size);
+    memory[i].tag= 0;
+    memory[i].block_size= block_size;
+    memory[i].valid = 0; // set it to default value
 
-   memory->accessed = make_block(block_size);
-   memory->block_size = block_size;
-   
+  }
+
+  return memory;  
 }
 
 Set *make_sets(int set_count, int line_count, int block_size) {
@@ -33,11 +40,18 @@ Set *make_sets(int set_count, int line_count, int block_size) {
   //   Make and initialize the sets given the set count. Then
   //   make and initialize the line and blocks.
   //
-  return NULL;
+   
+   Set *memory = (Set*) malloc(sizeof(Set));
+   for(int i = 0; i < set_count; i++ ){
+    memory[i].line_count= line_count;
+    memory[i].lines = make_lines(line_count,block_size);
+    memory[i].lru_queue = NULL;
+   }
+
+ // return NULL;
 }
 
 Cache *make_cache(int set_bits, int line_count, int block_bits) {
-  Cache *cache = NULL;
   // TODO:
   //   Make and initialize the cache, sets, lines, and blocks.
   //   You should use the `exp2` function to determine the
@@ -46,6 +60,16 @@ Cache *make_cache(int set_bits, int line_count, int block_bits) {
   //
   // ADD YOUR CODE HERE:
 
+   Cache *cache =(Cache*) malloc(sizeof(Cache));
+
+   cache->block_bits = block_bits;
+   cache->line_count = line_count;
+   cache->set_bits = set_bits;
+   cache->set_count = exp2(set_bits);
+   cache->block_size = exp2(block_bits);
+   cache->sets = make_sets(cache->set_count, line_count, cache->block_size);
+   
+   
   // END TODO
 
   // Create LRU queues for sets:
