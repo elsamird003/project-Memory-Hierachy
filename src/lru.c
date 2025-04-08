@@ -40,14 +40,25 @@ void lru_destroy(Cache *cache) {
 
 void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
 
-  LRUNode *p = set->lru_queue;
-
+  LRUNode *p = set->lru_queue;   // head 
+  LRUNode *prev = set->lru_queue;
   while(p){
     // check for if the p is in a valid line and tag is mached. If that happen then that is hit
     // I want to more that node in to update the head. i MAY WANT TO CREATE THAT  METHOD
       if((p->line->valid) && (p->line->tag == tag )){
         result->line = p->line;
         result->access = HIT;
+        if(set->lru_queue != p){
+          prev->next = p->next;  
+          p->next = set->lru_queue; 
+          set->lru_queue = p;  // move it to the front
+        }
+      }
+
+
+      else if ()
+      {
+        /* code */
       }
       
 
