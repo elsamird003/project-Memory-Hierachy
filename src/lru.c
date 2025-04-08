@@ -42,7 +42,11 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
 
   LRUNode *p = set->lru_queue;   // head 
   LRUNode *prev = set->lru_queue;
+  // LRUNode *prev_prev = prev;
+
+  int counter = 0;
   while(p){
+    counter++;    
     // check for if the p is in a valid line and tag is mached. If that happen then that is hit
     // I want to more that node in to update the head. i MAY WANT TO CREATE THAT  METHOD
       if((p->line->valid) && (p->line->tag == tag )){
@@ -52,24 +56,52 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
           prev->next = p->next;  
           p->next = set->lru_queue; 
           set->lru_queue = p;  // move it to the front
-        }
+        } break;
       }
-
-
-      else if ()
-      {
-        /* code */
-      }
-      
+      //  prev_prev = prev; 
+       prev = p;
+       p = p->next;
 
     
-    
-    // 
   }
+     if(result->access != HIT){
+        set->line_count;
+
+        if(set->line_count <= counter){  // full
+          result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
+            result->line = prev->line;
+            LRUNode *d=( LRUNode *) malloc(sizeof(LRUNode));
+            d->line->valid = 0;
+            d->line->tag = tag;
+
+            // d->line->block_size 
+            prev = NULL; 
+              // delete last node 
+            d->next = set->lru_queue;
+            set->lru_queue = d; // front of the list
+
+            
+
+        }
+        if(set->line_count > counter){
+          result->access = COLD_MISS;     // put in the front 
+          // result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
+            result->line = prev->line; // idk
+            LRUNode *d=( LRUNode *) malloc(sizeof(LRUNode));
+            d->line->valid = 0;
+            d->line->tag = tag;
+            d->next = set->lru_queue;
+            set->lru_queue = d; // front of the list
+        
+     }  
+
+    
+
 
 
   // TODO:
   // Implement the LRU algorithm to determine which line in
   // the cache should be accessed.
   //
+}
 }
