@@ -41,7 +41,7 @@ void lru_destroy(Cache *cache) {
 void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
 
   LRUNode *p = set->lru_queue;   // head 
-  LRUNode *prev = set->lru_queue;
+  LRUNode *prev = NULL;
   // LRUNode *prev_prev = prev;
 
   int counter = 0;
@@ -71,6 +71,7 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
           result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
             result->line = prev->line;
             LRUNode *d=( LRUNode *) malloc(sizeof(LRUNode));
+            d->line = (Line *) malloc(sizeof(Line)); 
             d->line->valid = 0;
             d->line->tag = tag;
 
@@ -83,11 +84,12 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
             
 
         }
-        if(set->line_count > counter){
+        else if(set->line_count > counter){
           result->access = COLD_MISS;     // put in the front 
           // result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
             result->line = prev->line; // idk
             LRUNode *d=( LRUNode *) malloc(sizeof(LRUNode));
+            d->line = (Line *) malloc(sizeof(Line));
             d->line->valid = 0;
             d->line->tag = tag;
             d->next = set->lru_queue;
