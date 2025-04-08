@@ -45,8 +45,9 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
   while(p){
     // check for if the p is in a valid line and tag is mached. If that happen then that is hit
     // I want to more that node in to update the head. i MAY WANT TO CREATE THAT  METHOD
-      if(p->line->valid ){
-        result->line[HIT];
+      if((p->line->valid) && (p->line->tag == tag )){
+        result->line = p->line;
+        result->access = HIT;
       }
       
 
