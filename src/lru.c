@@ -56,8 +56,8 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
           prev->next = p->next;  
           p->next = set->lru_queue; 
           set->lru_queue = p;  // move it to the front
-        } break;
-      }
+        } 
+      }break;
       //  prev_prev = prev; 
        prev = p;
        p = p->next;
@@ -80,7 +80,7 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
               // delete last node 
             d->next = set->lru_queue;
             set->lru_queue = d; // front of the list
-
+        }
             
 
         }
@@ -105,5 +105,4 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
   // Implement the LRU algorithm to determine which line in
   // the cache should be accessed.
   //
-}
 }
