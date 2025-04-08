@@ -39,6 +39,23 @@ void lru_destroy(Cache *cache) {
 }
 
 void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
+
+  LRUNode *p = set->lru_queue;
+
+  while(p){
+    // check for if the p is in a valid line and tag is mached. If that happen then that is hit
+    // I want to more that node in to update the head. i MAY WANT TO CREATE THAT  METHOD
+      if(p->line->valid ){
+        result->line[HIT];
+      }
+      
+
+    
+    
+    // 
+  }
+
+
   // TODO:
   // Implement the LRU algorithm to determine which line in
   // the cache should be accessed.
