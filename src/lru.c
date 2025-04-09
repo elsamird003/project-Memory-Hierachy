@@ -44,9 +44,27 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
   LRUNode *prev = NULL;
   // LRUNode *prev_prev = prev;
 
-  int counter = 0;
+  if(p->next == NULL){
+      if (p->line->tag == tag && p->line->valid){
+            result->access = HIT;
+      }
+      else if (p->line->tag!= tag || p->line->valid == 1){  // if the tag is not equal to the or the other tag 
+         result->access = CONFLICT_MISS;
+      
+      }
+      else {   
+        result->access = COLD_MISS;
+        p->line->valid = 1;  /// any time we have a miss we need to do this 
+        p->line->tag = tag;      // IF I HAVE A MISS I NEED TO CHANGE THE TAG THE VALID BIT  bit to 1
+      }
+    
+ 
+    
+  }
+
+  // int counter = 0;
   while(p){
-    counter++;    
+     
     // check for if the p is in a valid line and tag is mached. If that happen then that is hit
     // I want to more that node in to update the head. i MAY WANT TO CREATE THAT  METHOD
       if(p->line->valid && p->line->tag == tag ){
@@ -59,55 +77,33 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
         } 
       }break;
       //  prev_prev = prev; 
-       prev = p;
-       p = p->next;
-
-    
-  }
-     if(result->access != HIT){
-        if(set->line_count <= counter){  // full
-          result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
-            result->line = prev->line;
-            LRUNode *d=( LRUNode *) malloc(sizeof(LRUNode));
-            d->line = (Line *) malloc(sizeof(Line)); 
-            d->line->valid = 0;
-            d->line->tag = tag;
-
-            // d->line->block_size 
-            prev = NULL; 
-              // delete last node 
-            d->next = set->lru_queue;
-            set->lru_queue = d; // front of the list
-        }
-            
-
-        }
-        else if(set->line_count > counter){
-          result->access = COLD_MISS;     // put in the front 
-          // result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
-            result->line = prev->line; // idk
-            LRUNode *cur2 = set->lru_queue; // get's the head
-            LRUNode *p2 = set->lru_queue;
-           
-                   cur2->line->valid == 0;
-                  cur2->line->valid = 1;
-                  cur2->line->tag = tag;
-                  result->line = cur2->line;
-        
-      
-                  return;
-              
-      
-              p2 = cur2;
-              cur2 = cur2->next;
-        
-    
-
-        
-    }
-        
-
   
+           
+     if(p->line->valid == 0 ){     // check if the current line == 0  
+          result->access = COLD_MISS;    
+          prev->next = p->next;  
+          p->next = set->lru_queue; // points to the front of the linked list
+          set->lru_queue = p;  // move it to the front 
+          return;
+    } 
+    
+
+
+    if(p->next ==NULL){
+      result->access = CONFLICT_MISS;
+      prev->next = p->next;  
+      p->next = set->lru_queue;  // point to the front of the list 
+      set->lru_queue = p;
+
+    }
+
+    prev = p;
+    p = p->next;
+  
+
+  }
+
+
 
 
   // TODO:
