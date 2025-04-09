@@ -49,7 +49,7 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
     counter++;    
     // check for if the p is in a valid line and tag is mached. If that happen then that is hit
     // I want to more that node in to update the head. i MAY WANT TO CREATE THAT  METHOD
-      if((p->line->valid) && (p->line->tag == tag )){
+      if(p->line->valid && p->line->tag == tag ){
         result->line = p->line;
         result->access = HIT;
         if(set->lru_queue != p){
@@ -65,8 +65,6 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
     
   }
      if(result->access != HIT){
-        set->line_count;
-
         if(set->line_count <= counter){  // full
           result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
             result->line = prev->line;
@@ -88,17 +86,28 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
           result->access = COLD_MISS;     // put in the front 
           // result->access = CONFLICT_MISS;  // kick out the last guy // p is null or dead // prev
             result->line = prev->line; // idk
-            LRUNode *d=( LRUNode *) malloc(sizeof(LRUNode));
-            d->line = (Line *) malloc(sizeof(Line));
-            d->line->valid = 0;
-            d->line->tag = tag;
-            d->next = set->lru_queue;
-            set->lru_queue = d; // front of the list
+            LRUNode *cur2 = set->lru_queue; // get's the head
+            LRUNode *p2 = set->lru_queue;
+           
+                   cur2->line->valid == 0;
+                  cur2->line->valid = 1;
+                  cur2->line->tag = tag;
+                  result->line = cur2->line;
         
-     }  
-
+      
+                  return;
+              
+      
+              p2 = cur2;
+              cur2 = cur2->next;
+        
     
 
+        
+    }
+        
+
+  
 
 
   // TODO:
