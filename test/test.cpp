@@ -180,17 +180,19 @@ TEST(ProjectTests, test_wc_trace) {
   Cache *cache = make_cache(sets, lines, bytes);
   ASSERT_NE(cache, (Cache *)NULL) << "cache is NULL";
   CPU *cpu = make_cpu(cache, "test/wc.trace");
+  
   ASSERT_NE(cpu, (CPU *)NULL) << "cpu is NULL";
-
+  
   run_cpu(cpu);
+    printf("%d", cpu->cold ,"HERE!!!!");
 
   int diff = abs(cpu->cold + cpu->conflict - 22104);
 
   ASSERT_TRUE(cpu->cold + cpu->conflict > 22050 &&
               cpu->cold + cpu->conflict < 22154)
       << "the number of misses (cpu->cold+cpu->conflict) was not "
-         "within the range of the expected result of 22104"
-      << ". You were off by " << diff << ".";
+         "within the range of the expected result of 22104" 
+      << ". You were off by " << diff << "." << cpu->cold <<"." << cpu->conflict << "." << cpu->hits ;
 
   diff = abs(cpu->hits - 787666);
 
