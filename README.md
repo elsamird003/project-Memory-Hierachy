@@ -13,7 +13,7 @@ A comprehensive architectural simulator developed in **C and C++** to model and 
     * Average Memory Access Time (AMAT)
 
 ## 🛠 Technical Stack
-* **Language:** C++ (Standard C++11/14)
+* **Language:** C anc C++
 * **Environment:** Linux / Unix
 * **Core Concepts:** Virtual Memory, Page Replacement, Bit Manipulation, and Hardware Interfacing.
 
@@ -28,7 +28,7 @@ The simulator follows a strict data-request path to mirror real hardware:
 ## 📋 Getting Started
 
 ### Prerequisites
-* G++ (GNU C++ Compiler)
+* G++ (GNU C AND C++ Compiler)
 * Make
 
 ### Installation & Compilation
