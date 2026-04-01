@@ -34,7 +34,4 @@ int get_byte(Cache *cache, address_type address) {
   // TODO
   // Extract the block offset (byte index) bits from a 32-bit address.
   //
-
-  return address&((1 << cache->block_bits)-1);
-
-}
+  return address&((1 << cache->block_bits)-1);}

@@ -19,7 +19,9 @@ CPU *make_cpu(Cache *cache, const char *address_trace_file) {
   return cpu;
 }
 
-void delete_cpu(CPU *cpu) { free(cpu); }
+void delete_cpu(CPU *cpu) {
+   free(cpu);   
+  }
 
 void run_cpu(CPU *cpu) {
   TraceLine trace_line;

@@ -27,6 +27,7 @@ TEST(ProjectTests, test_cache_make) {
   Cache *cache = make_cache(sets, lines, bytes);
 
   ASSERT_NE(cache, (Cache *)NULL) << "cache is NULL";
+  
 }
 
 TEST(ProjectTests, test_cache_initialization_set_bits) {

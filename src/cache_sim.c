@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
         "<tracefile>\n");
     exit(1);
   }
-  int sets = atoi(argv[1]);
+  int sets = atoi(argv[1]);  // Atoi takes the string and tranlate its into integer
   int lines = atoi(argv[2]);
   int bytes = atoi(argv[3]);
   char *file = argv[4];

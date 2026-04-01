@@ -8,10 +8,7 @@
 
 char *make_block(int block_size) {
   // TODO:
-  //   Make and initialize a block's accessed bits given the block_size.
-
-  //
- 
+  //   Make and initialize a block's accessed bits given the block_size  //
   // HINT: if it wasn't clear already, this gets put in the "accessed" field
   return (char *) malloc(block_size);
  // return NULL;
