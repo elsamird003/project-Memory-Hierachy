@@ -1,5 +1,5 @@
-_DEPS = bits.h cache.h cpu.h lru.h trace.h
-_OBJ = bits.o cache.o cpu.o lru.o
+_DEPS = bits.h cache.h cpu.h lru.h trace.h tlb.h page_table.h
+_OBJ = bits.o cache.o cpu.o lru.o tlb.o page_table.o
 _MOBJ = cache_sim.o
 _TOBJ = test.o soln-bits.o
 
@@ -37,8 +37,6 @@ $(TESTBIN): $(TOBJ) $(OBJ)
 submission:
 	zip -r submission src lib include
 
-
-
 .PHONY: clean
 
 clean:
@@ -46,4 +44,3 @@ clean:
 	rm -f  *~ core $(IDIR)/*~
 	rm -f $(APPBIN) $(TESTBIN)
 	rm -f submission.zip
-

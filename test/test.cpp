@@ -6,6 +6,8 @@
 #include "bits.h"
 #include "cache.h"
 #include "cpu.h"
+#include "tlb.h"
+#include "page_table.h"
 
 // Include these definitions to test against solution:
 int soln_get_set(Cache *cache, address_type address);
@@ -180,32 +182,34 @@ TEST(ProjectTests, test_wc_trace) {
   int bytes = 8;
   Cache *cache = make_cache(sets, lines, bytes);
   ASSERT_NE(cache, (Cache *)NULL) << "cache is NULL";
-  CPU *cpu = make_cpu(cache, "test/wc.trace");
+  TLB *tlb = make_tlb(16, 12);
+  PageTable *page_table = make_page_table(12);
+  CPU *cpu = make_cpu(cache, tlb, page_table, "test/wc.trace");
   
   ASSERT_NE(cpu, (CPU *)NULL) << "cpu is NULL";
   
   run_cpu(cpu);
     printf("%d", cpu->cold ,"HERE!!!!");
 
-  int diff = abs(cpu->cold + cpu->conflict - 22104);
+  int diff = abs(cpu->cold + cpu->conflict - 22353);
 
-  ASSERT_TRUE(cpu->cold + cpu->conflict > 22050 &&
-              cpu->cold + cpu->conflict < 22154)
+  ASSERT_TRUE(cpu->cold + cpu->conflict > 22303 &&
+              cpu->cold + cpu->conflict < 22403)
       << "the number of misses (cpu->cold+cpu->conflict) was not "
-         "within the range of the expected result of 22104" 
+         "within the range of the expected result of 22353"
       << ". You were off by " << diff << "." << cpu->cold <<"." << cpu->conflict << "." << cpu->hits ;
 
-  diff = abs(cpu->hits - 787666);
+  diff = abs(cpu->hits - 787417);
 
-  ASSERT_TRUE(cpu->hits > 787616 && cpu->hits < 787716)
+  ASSERT_TRUE(cpu->hits > 787367 && cpu->hits < 787467)
       << "the number of hits (cpu->hits) was not "
-         "within the range of the expected result of 787666"
+         "within the range of the expected result of 787417"
       << ". You were off by " << diff << ".";
 
-  diff = abs(cpu->conflict - 22088);
+  diff = abs(cpu->conflict - 22337);
 
-  ASSERT_TRUE(cpu->conflict > 22038 && cpu->conflict < 22138)
+  ASSERT_TRUE(cpu->conflict > 22287 && cpu->conflict < 22387)
       << "the number of conflicts (cpu->conflict) was not "
-         "within the range of the expected result of 22088"
+         "within the range of the expected result of 22337"
       << ". You were off by " << diff << ".";
 }

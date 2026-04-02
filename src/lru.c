@@ -115,17 +115,14 @@ void lru_fetch(Set *set, unsigned int tag, LRUResult *result) {
       p->line->tag = tag;
       p->line->valid = 1; 
       result->access = CONFLICT_MISS;
+      result->line = p->line;
       if (p != set->lru_queue){ 
       prev->next = p->next;  
-      p->next = set->lru_queue;  // point to the front of the list 
+      p->next = set->lru_queue;
       set->lru_queue = p;
-      //  printf(p);
 
     }
     break;
-
-
-    result->line =  p->line;
   }
 
     prev = p;

@@ -3,24 +3,32 @@
 #include <stdlib.h>
 #include "cache.h"
 #include "cpu.h"
+#include "tlb.h"
+#include "page_table.h"
 
 int main(int argc, char *argv[]) {
-  if (argc != 5) {
+  if (argc != 7) {
     printf(
         "usage: cache-sim <set bits> <associativity> <block bits> "
-        "<tracefile>\n");
+        "<page bits> <tlb entries> <tracefile>\n");
     exit(1);
   }
-  int sets = atoi(argv[1]);  // Atoi takes the string and tranlate its into integer
+  int sets = atoi(argv[1]);
   int lines = atoi(argv[2]);
   int bytes = atoi(argv[3]);
-  char *file = argv[4];
+  int page_bits = atoi(argv[4]);
+  int tlb_entries = atoi(argv[5]);
+  char *file = argv[6];
 
   Cache *cache = make_cache(sets, lines, bytes);
-  CPU *cpu = make_cpu(cache, file);
+  TLB *tlb = make_tlb(tlb_entries, page_bits);
+  PageTable *page_table = make_page_table(page_bits);
+  CPU *cpu = make_cpu(cache, tlb, page_table, file);
 
   run_cpu(cpu);
 
   delete_cpu(cpu);
+  delete_tlb(tlb);
+  delete_page_table(page_table);
   delete_cache(cache);
 }
