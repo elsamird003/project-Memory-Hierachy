@@ -1,6 +1,6 @@
 # Memory Hierarchy Simulator
 
-A comprehensive architectural simulator developed in **C** to model and analyze the complete data flow within a computer's memory system. This project simulates the complex interactions between the **CPU, Translation Lookaside Buffer (TLB), Page Tables, and Physical Memory**.
+A comprehensive architectural simulator developed in **C** to model and analyze the complete data flow within a computer's memory system. This project simulates the complex interactions between the **CPU, Page Tables, and Physical Memory**.
 
 ## Features
 * **Full Address Translation:** Simulates the transition from Virtual Addresses to Physical Addresses using a multi-level hierarchy.
