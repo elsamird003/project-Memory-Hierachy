@@ -5,7 +5,6 @@ A comprehensive architectural simulator developed in **C** to model and analyze 
 ## Features
 * **Full Address Translation:** Simulates the transition from Virtual Addresses to Physical Addresses using a multi-level hierarchy.
 * **Integrated TLB & Cache:** Models a Translation Lookaside Buffer to demonstrate speed improvements in address translation.
-* **Page Table Management:** Implements Page Table logic, including Page Fault handling and Disk/Memory swap simulations.
 * **Configurable Parameters:** Supports customizable cache dimensions, page sizes, and TLB entries via command-line arguments.
 * **Detailed Performance Reporting:** Tracks and outputs critical system metrics including Hit/Miss Rates, Evictions, and Conflict Misses.
 
